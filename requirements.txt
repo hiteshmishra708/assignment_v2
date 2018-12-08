@@ -1,0 +1,7 @@
+Django==2.0.4
+django-rest-swagger==2.1.2
+djangorestframework==3.8.2
+simplejson==3.13.2
+extract_msg
+paramiko
+idna==2.5

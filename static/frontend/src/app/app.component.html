@@ -1,0 +1,84 @@
+<div class="container">
+	<div class="content">
+		<nav class="header">
+			<div class="row pageDes">
+				<h3>Python Assignment</h3>
+				<p>Angular 6 and Django Rest Framework</p>
+			</div>
+		</nav>
+		<div class="body container">
+			<div class="row fileUpload">
+				<div class="row pageDes">
+					<h4>Connect Linux Server</h4>
+				</div>
+				<div class="form-group">
+					<label>Host or IP Address:</label>
+					<input type="text" name="new_Track_host" class="form-control" [(ngModel)]="new_Track.host"/>
+				</div>
+				<div class="error">
+					<label *ngIf="fields['host'] && fields['host'].required">Host or IP Address is required.</label>
+				</div>
+				<div class="form-group">
+					<label>Username:</label>
+					<input type="text" name="new_Track_username" class="form-control" [(ngModel)]="new_Track.username"/>
+				</div>
+				<div class="error">
+					<label *ngIf="fields['username'] && fields['username'].required">Username is required.</label>
+				</div>
+				<div class="form-group">
+					<label>Password:</label>
+					<input type="password" name="new_Track_password" class="form-control" [(ngModel)]="new_Track.password"/>
+				</div>
+				<div class="error">
+					<label *ngIf="fields['password'] && fields['password'].required">Password is required.</label>
+				</div>
+				<div class="form-group">
+					<label>Port:</label>
+					<input type="text" name="new_Track_Port" class="form-control" [(ngModel)]="new_Track.port"/>
+				</div>
+				<div class="form-group">
+					<button (click)="connectServer()" class="btn btn-primary">Connect</button>&nbsp;
+					<button (click)="clearFields()" class="btn btn-primary">Clear</button>
+				</div>
+				<table class="table" *ngIf="userData && userData.length > 0">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Is Root User</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let data of userData" [ngClass]="{'rootUser': data.isRootUser}">
+							<td>{{data.user}}</td>
+							<td>{{data.isRootUser}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row pageDes">
+					<h4>Get Email Data</h4>
+				</div>
+				<div class="form-group">
+					<label for="fileToUpload">Select Files</label><br />
+					<input type="file" ng-model-instant id="fileToUpload" accept=".msg" multiple (change)="setFiles($event)" />
+				</div>
+				<div class="form-group">
+					<button (click)="uploadFile()" class="btn btn-primary form-control">Upload File</button>
+				</div>
+				<div *ngIf="fileData && fileData.length > 0">
+					<div *ngFor="let data of fileData">
+						<label>File Name: </label><a href={{data.filepath}}>{{data.filename}}</a><br />
+						<label>From: </label><span>{{data.from}}</span><br />
+						<label>To: </label><span>{{data.to}}</span><br />
+						<label>CC: </label><span>{{data.cc}}</span><br />
+						<label>Subject: </label><span>{{data.subject}}</span><br />
+						<label>Date: </label><span>{{data.date}}</span><br />
+						<label>Message: </label><span class="fileUpload_Msg">{{data.body}}</span><br />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>Python Assignment</p>
+		</div>
+	</div>
+</div>

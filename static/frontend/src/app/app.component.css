@@ -1,0 +1,118 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: Arial, "Helvetica", sans-serif !important;
+}
+
+.container {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.content {
+    display: table;
+    width: 100%;
+    padding-top: 5px;
+}
+
+nav {
+    position: relative;
+    margin: 0 auto;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px !important;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    height: 30px;
+    padding-left: 30px;
+}
+  
+.footer p {
+    float: right;
+    margin-right: 30px;
+}
+
+.body {
+    position: absolute;
+    top: 100px;
+    bottom: 75px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    padding: 50px;
+}
+
+.table {
+    padding: 20px;
+}
+
+.table tbody {
+    display: block;
+    height: 375px;
+    /* min-width: 600px; */
+    width: 30em;
+    overflow: auto;
+}
+
+.table thead,
+.table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table th, .table td {
+    min-width: 120px;
+}
+/* 
+.form-control {
+    width: 33%;
+} */
+
+.fileUpload {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    width: 30em;
+    /* height: 30em; */
+    margin-top: -9em;
+    margin-left: -15em;
+    white-space: normal;
+}
+
+.fileUpload_Msg {
+    margin-bottom: 15px;
+    /* height: 10em;
+    overflow: auto;
+    display: block; */
+}
+
+.form-group button {
+    width: 150px;
+}
+
+.pageDes {
+    text-align: center;
+}
+
+.authorTable {
+    margin-top: 30px;
+}
+
+.authorTable table th {
+    background: lightgray;
+}
+
+.error label {
+    color: red;
+}
+
+.rootUser {
+    background: yellow;
+}

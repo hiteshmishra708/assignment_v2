@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  <app-root>Loading the app...</app-root>
+
+  <script type="text/javascript" src="{% static 'frontend/dist/runtime.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/dist/polyfills.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/dist/styles.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/dist/vendor.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/dist/main.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/node_modules/moment/min/moment.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'frontend/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+  {% endblock %}
