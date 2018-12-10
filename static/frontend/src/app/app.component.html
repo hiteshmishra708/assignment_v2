@@ -72,6 +72,12 @@
 						<label>CC: </label><span>{{data.cc}}</span><br />
 						<label>Subject: </label><span>{{data.subject}}</span><br />
 						<label>Date: </label><span>{{data.date}}</span><br />
+						<label *ngIf="data.attachments && data.attachments.length > 0">Attachments: </label>
+						<div *ngIf="data.attachments && data.attachments.length > 0">
+							<span *ngFor="let attachment of data.attachments">
+								<a href={{attachment.filepath}} >{{attachment.filename}}</a>
+							</span>
+						</div>
 						<label>Message: </label><span class="fileUpload_Msg">{{data.body}}</span><br />
 					</div>
 				</div>

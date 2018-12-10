@@ -17,12 +17,17 @@ def index(request, path=''):
 @api_view(['POST'])
 def connect(request):
     """
-    Filter all tracks or artist id or release date.
+    Get users list from linux server
     """
+    # Get root user
+    # getent group root | perl -naF: -e 'print "$F[0]\n"'
+
+    # Get all users
+    #  getent passwd | perl -naF: -e 'print "$F[0]\n"'
+ 
     # Command to get users
     # awk -F':' '{ print $1}' /etc/passwd
     # cut -d: -f1 /etc/passwd
-    # compgen -u
 
     # Command to get user with root privileges
     # grep -Po '^sudo.+:\K.*$' /etc/group
@@ -42,6 +47,8 @@ def connect(request):
         user_list = str(stdout.read()).replace("b\'", "").split("\\n")
         stdin, stdout, stderr = client.exec_command("grep -Po '^sudo.+:\K.*$' /etc/group")
         root_users = str(stdout.read()).replace("b\'", "").replace("\\n\'", "").split(",")
+        stdin, stdout, stderr = client.exec_command("getent group root | perl -naF: -e 'print \"$F[0]\n\"'")
+        root_users = list(set(root_users + str(stdout.read()).replace("b\'", "").replace("\\n\'", "").split(",")))
         # Close connection.
         shell.close()
         client.close()
@@ -49,7 +56,6 @@ def connect(request):
             isRoot = False
             if user in root_users:
                 isRoot = True
-            print(isRoot)
             user_data.append({
                 "user": user,
                 "isRootUser": isRoot
@@ -70,7 +76,7 @@ def connect(request):
 @api_view(['POST'])
 def extract(request):
     """
-    Filter all tracks or artist id or release date.
+    Get data from .msg file
     """
     try:
         files = request.FILES.getlist('myFile')
@@ -78,16 +84,21 @@ def extract(request):
         fs = FileSystemStorage()
         for file in files:
             name = file.name.replace(" ", "_")
-            # if os.path.exists(settings.MEDIA_ROOT + "\\" + file.name):
-            #     os.remove(settings.MEDIA_ROOT + "\\" + file.name)
+            if os.path.exists(settings.MEDIA_ROOT + "\\" + file.name):
+                os.remove(settings.MEDIA_ROOT + "\\" + file.name)
             fs.save(settings.MEDIA_ROOT + "\\" + name, file)
             msg = extract_msg.Message(settings.MEDIA_ROOT + "\\" + name)
-            # for attachment in msg.attachments:
-            #     fs.save(settings.MEDIA_ROOT + "\\" + attachment.longFilename, attachment.data)
+            msg.save_attachments(customPath=settings.MEDIA_ROOT + "\\")
+            attachments = []
+            for i in range(0, len(msg.attachments)):
+                attachments.append({
+                    "filename": msg.attachments[i].shortFilename,
+                    "filepath": "/media/" + msg.attachments[i].shortFilename
+                })
             msg_data.append({
                 # "mainProperties": msg.mainProperties,
                 # "header": msg.header,
-                # "attachments": msg.attachments,
+                "attachments": attachments,
                 "filename": file.name,
                 "filepath": "/media/" + name,
                 "from": msg.sender,
