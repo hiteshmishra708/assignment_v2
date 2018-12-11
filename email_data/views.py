@@ -84,8 +84,8 @@ def extract(request):
         fs = FileSystemStorage()
         for file in files:
             name = file.name.replace(" ", "_")
-            if os.path.exists(settings.MEDIA_ROOT + "\\" + file.name):
-                os.remove(settings.MEDIA_ROOT + "\\" + file.name)
+            if os.path.exists(settings.MEDIA_ROOT + "\\" + name):
+                os.remove(settings.MEDIA_ROOT + "\\" + name)
             fs.save(settings.MEDIA_ROOT + "\\" + name, file)
             msg = extract_msg.Message(settings.MEDIA_ROOT + "\\" + name)
             msg.save_attachments(customPath=settings.MEDIA_ROOT + "\\")
@@ -108,6 +108,7 @@ def extract(request):
                 "date": msg.date,
                 "body": msg.body,
             })
+            msg.close()
         response = {
             "response": "SUCCESS",
             "message": "File Uploaded!",
